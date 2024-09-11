@@ -40,17 +40,11 @@ void LinkedList::add(void* data)
 void LinkedList::add(void* data , int index)
 {
     LinkedList* list = getList(index);
-    printf("got here 0\n");
     LinkedList* newList = new LinkedList();
-        printf("got here 0\n");
-
     newList->data = data;
-        printf("got here 0\n");
-
     newList->next = list->next;
-        printf("got here 0\n");
-
     list->next = newList;
+
 }
 LinkedList* LinkedList::getList(int index)
 {
@@ -58,7 +52,13 @@ LinkedList* LinkedList::getList(int index)
     {
         return this;
     }
-    return next->getList(index--);
+    else
+    {
+        // This shit is the reason i fuking exploded.
+        // If you put index-- it executes substraction after the function
+        // That means endless recursive :*(
+        return next->getList(--index);   
+    }
 }
 
 
